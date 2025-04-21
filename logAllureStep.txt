@@ -1,0 +1,28 @@
+const logger = require("../Utils/Logger").logger;
+const allure = require("allure-commandline");
+
+function logAllureStep(message, allureLevel = "info") {
+  // Log the message to the console (using Logger)
+  switch (allureLevel.toLowerCase()) {
+    case "debug":
+      logger.debug(message);
+      break;
+    case "info":
+      logger.info(message);
+      break;
+    case "warn":
+      logger.warn(message);
+      break;
+    case "error":
+      logger.error(message);
+      break;
+    default:
+      logger.info(message);
+      break;
+  }
+
+  // Log the message to Allure (as a step)
+  allure.createStep(message, () => {});
+}
+
+module.exports.logAllureStep = logAllureStep;

@@ -1,0 +1,12 @@
+
+for Global
+npm install -g allure-commandline --save-dev
+
+for local
+npm install allure-commandline --save-dev
+
+allure --version
+
+
+optional
+npm install mocha-allure-reporter --save-dev

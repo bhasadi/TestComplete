@@ -1,0 +1,20 @@
+this.setText = function(element, text) {
+    var timeout = 10000; // 10 seconds
+    var interval = 100; // polling every 100ms
+    var elapsedTime = 0;
+
+    // Wait for the element to be visible and enabled
+    while (elapsedTime < timeout) {
+        if (element.Visible && element.Enabled) {
+            // If the element is visible and enabled, set the text
+            element.SetText(text);
+            return; // Exit the method after setting text
+        }
+        // Wait for the interval (100ms) before checking again
+        Delay(interval);
+        elapsedTime += interval;
+    }
+
+    // If the loop exits, the element was not ready in time
+    Log.Error("Element is not visible or enabled after waiting for " + timeout + "ms.");
+};

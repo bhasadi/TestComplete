@@ -1,0 +1,24 @@
+stages:
+  - test
+  - report
+
+variables:
+  TEST_RESULTS_DIR: allure-results
+  ALLURE_REPORT_DIR: allure-report
+
+before_script:
+  - npm install
+
+test:
+  stage: test
+  script:
+    - npm test -- --reporter mocha-allure-reporter
+
+generate_allure_report:
+  stage: report
+  script:
+    - allure generate $TEST_RESULTS_DIR --clean --output $ALLURE_REPORT_DIR
+  artifacts:
+    paths:
+      - allure-report/
+

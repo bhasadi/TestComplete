@@ -1,0 +1,39 @@
+
+Create a file named .github/workflows/test.yml in your repository with the following content:
+name: Test Suite with Allure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with Allure reporter
+        run: npm test -- --reporter mocha-allure-reporter
+
+      - name: Generate Allure report
+        run: allure generate allure-results --clean --output allure-report
+
+      - name: Upload Allure Report as an artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: allure-report
+          path: allure-report
